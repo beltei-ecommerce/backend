@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/register', [UserController::class, 'register']);
 Route::post('/auth/login', [UserController::class, 'login']);
 Route::post('/auth/send_request_reset_password', [UserController::class, 'sendRequestResetPassword']);
-Route::post('/auth/verify_reset_password', [UserController::class, 'verifyResetPassword']);
+Route::get('/auth/verify_reset_password', [UserController::class, 'verifyResetPassword']);
 Route::post('/auth/reset_password', [UserController::class, 'resetPassword']);
 
 Route::get('/products', [ProductController::class, 'index']);

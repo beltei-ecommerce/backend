@@ -27,7 +27,7 @@ class RecoverPasswordNotifycation extends Mailable
      */
     public function build()
     {
-        return $this->from('admin@gmail.com','Admin')
+        return $this->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
         ->view('emails/recover_password_link')->with($this->data);
     }
 
