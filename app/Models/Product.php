@@ -8,6 +8,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id',
+        'fk_category_id',
+        'name',
+        'product_code',
+        'description',
+        'image',
+        'disable'
+    ];
+
     // Store or Update product
     public static function storeProduct($request, $id = null)
     {
