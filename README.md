@@ -31,7 +31,7 @@ Location copy file from `.env.example` to `.env`
 - `MAIL_ENCRYPTION`: `"tls"`.
 - `MAIL_FROM_ADDRESS`: `"admin@example.com"`.​
 - `MAIL_FROM_NAME`: `"Ecommerce Admin"`.​
-- `VUE_APP_BASE_URL`: `"http://localhost:3000"`.​
+- `FRONTEND_APP_BASE_URL`: `"http://localhost:3000"`.​
 
 
 **Following commands**
