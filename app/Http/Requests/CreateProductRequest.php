@@ -32,7 +32,6 @@ class CreateProductRequest extends FormRequest
             'product_code' => 'required',
             'description' => 'required',
             'image' => 'required',
-            'is_active' => 'required',
         ];
     }
 
