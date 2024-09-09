@@ -27,6 +27,8 @@ Route::post('/auth/reset_password', [UserController::class, 'resetPassword']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
+Route::get('/categories', [CategoryController::class, 'index']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -38,5 +40,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('products', ProductController::class)->except(['index', 'show']);
 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->except(['index']);
 });
