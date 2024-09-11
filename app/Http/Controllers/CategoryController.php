@@ -4,13 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Utils\Pagination;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::get();
-        return response()->json(["success" => true, "data" => $categories], 200);
+        $page = $request->query('page');
+        $limit = $request->query('limit');
+        $name = $request->query('name');
+
+        $query = Category::query()->where('name', 'like', '%' . $name . '%');
+        $queryCount = clone $query;
+
+        if (!$limit) {
+          $categories = $query->get();
+        } else {
+          $offset = Pagination::offset($page, $limit);
+          $categories = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
+        }
+
+        return response()->json([
+            "success" => true,
+            'data' => [
+              'count' => $queryCount->count(),
+              'rows' => $categories,
+            ]
+          ]);
     }
 
     public function show($id)
