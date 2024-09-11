@@ -21,18 +21,19 @@ class ProductController extends Controller
     $name = $request->query('name');
 
     $query = Product::query()->where('name', 'like', '%' . $name . '%');
+    $queryCount = clone $query;
 
     if (!$limit) {
       $products = $query->get();
     } else {
       $offset = Pagination::offset($page, $limit);
-      $products = $query->skip($offset)->take($limit)->get();
+      $products = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
     }
 
     return response()->json([
       "success" => true,
       'data' => [
-        'count' => $query->count(),
+        'count' => $queryCount->count(),
         'rows' => ProductResource::collection($products),
       ]
     ]);

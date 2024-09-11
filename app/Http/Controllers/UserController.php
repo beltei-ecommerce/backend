@@ -30,9 +30,12 @@ class UserController extends Controller
 
         $user = Auth::user();
         $token = $user->createToken('API Token')->plainTextToken;
+        $canSeeMenus = $user->id === 1; // Implement role permission later
+
         return response()->json([
             'success' => true,
             'user' => new UserResource($user),
+            'can_see_menus' => $canSeeMenus,
             'token' => $token,
         ]);
     }
@@ -51,7 +54,14 @@ class UserController extends Controller
 
     public function whoAmI()
     {
-        return response()->json(["success" => true, "user" => new UserResource(Auth::user())]);
+        $user = Auth::user();
+        $canSeeMenus = $user->id === 1; // Implement role permission later
+
+        return response()->json([
+            "success" => true,
+            "user" => new UserResource($user),
+            'can_see_menus' => $canSeeMenus,
+        ]);
     }
 
     public function updatePassword(ChangePasswordRequest $request)
