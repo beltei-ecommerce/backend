@@ -31,7 +31,7 @@ class CreateProductRequest extends FormRequest
             'name' => 'required',
             'product_code' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ];
     }
 

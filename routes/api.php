@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::post('/auth/login', [UserController::class, 'login']);
 Route::post('/auth/send_request_reset_password', [UserController::class, 'sendRequestResetPassword']);
 Route::get('/auth/verify_reset_password', [UserController::class, 'verifyResetPassword']);
 Route::post('/auth/reset_password', [UserController::class, 'resetPassword']);
+
+Route::get('/images/{filename}', [FileController::class, 'show']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);

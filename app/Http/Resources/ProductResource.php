@@ -16,6 +16,9 @@ class ProductResource extends JsonResource
     {
         return array_merge(parent::toArray($request), [
             'category'=> new CategoryResource($this->category),
+            'productImages'=> $this->productImages,
+            'productImages'=> $request->query('includeProductImages')
+                ? $this->productImages : null
         ]);
     }
 }

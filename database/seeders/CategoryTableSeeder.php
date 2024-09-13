@@ -13,13 +13,14 @@ class CategoryTableSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name'=> "DELL"],
-            ['name'=> "HP"],
-            ['name'=> "Lenovo"],
-            ['name'=> "Apple"],
+            ['name' => "ASUS"],
+            ['name' => "DELL"],
+            ['name' => "HP"],
+            ['name' => "LENOVO"],
+            ['name' => "APPLE"],
         ];
 
-        foreach ($categories as $category){
+        foreach ($categories as $category) {
             Category::create($category);
         }
     }
