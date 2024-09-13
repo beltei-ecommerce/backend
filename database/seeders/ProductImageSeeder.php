@@ -19,6 +19,11 @@ class ProductImageSeeder extends Seeder
                 "path" => "1726215284_laptop1.png",
             ],
             [
+                "fk_product_id" => 1,
+                "name" => "1726215284_laptop1.png",
+                "path" => "1726215284_laptop1.png",
+            ],
+            [
                 "fk_product_id" => 2,
                 "name" => "1726215392_laptop1.png",
                 "path" => "1726215392_laptop1.png",

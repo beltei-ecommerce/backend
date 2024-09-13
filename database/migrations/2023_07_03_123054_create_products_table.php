@@ -20,6 +20,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('product_code');
+            $table->decimal('price', 9, 3);
+            $table->integer('quantity');
             $table->text('description')->nullable();
             $table->boolean('disable')->default(false);
             $table->timestamps();
