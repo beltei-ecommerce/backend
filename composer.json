@@ -48,8 +48,11 @@
             "@php artisan key:generate --ansi"
         ],
         "migrate:seed": [
-            "@php artisan migrate:refresh",
+            "@php artisan migrate:fresh",
             "@php artisan db:seed"
+        ],
+        "migration:create": [
+            "@php artisan make:model --migration --controller --api "
         ]
     },
     "extra": {

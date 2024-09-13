@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Utils\Pagination;
 // use Illuminate\Support\Facades\Log;
@@ -45,9 +45,23 @@ class ProductController extends Controller
     return Response()->json(['success' => true, 'data' => new ProductResource($product)], 200);
   }
 
-  public function store(CreateProductRequest $request)
-  {
+  public function store(CreateProductRequest $request) {
     $product = Product::storeProduct($request);
+
+    // Handle multiple file upload
+    if ($request->hasFile('images')) {
+      foreach ($request->allFiles('images') as $image) {
+        $imageName = time().'_'.$image->getClientOriginalName();
+        $image->move(public_path('images'), $imageName);
+
+        ProductImage::create([
+          'fk_product_id' => $product->id,
+          'name' => $imageName,
+          'path' => $imageName,
+        ]);
+      }
+    }
+
     return response()->json(['success' => true, 'data' => new ProductResource($product)], 200);
   }
 

@@ -14,21 +14,21 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [
-                'first_name'=>"Jonh",
-                'last_name'=>"Son",
-                'gender'=>"male",
-                'email'=>'admin@example.com',
-                'password'=>'123',
+                'first_name' => "Jonh",
+                'last_name' => "Son",
+                'gender' => "male",
+                'email' => 'admin@example.com',
+                'password' => '123',
             ],
             [
-                'first_name'=>"Amma",
-                'last_name'=>"Nita",
-                'gender'=>"male",
-                'email'=>'user@example.com',
-                'password'=>'123',
+                'first_name' => "Amma",
+                'last_name' => "Nita",
+                'gender' => "male",
+                'email' => 'user@example.com',
+                'password' => '123',
             ]
         ];
-        foreach ($users as $user){
+        foreach ($users as $user) {
             User::create($user);
         }
     }
