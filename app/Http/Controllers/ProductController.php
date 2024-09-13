@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
@@ -39,19 +40,26 @@ class ProductController extends Controller
     ]);
   }
 
-  public function show($id)
+  public function show(Request $request, int $id)
   {
     $product = Product::find($id);
+    if (!$product) {
+      return Response()->json(['success' => false, 'message' => 'Product not found'], 404);
+    }
+
+    $request['includeProductImages'] = true; // include productImages in ProductResource
+
     return Response()->json(['success' => true, 'data' => new ProductResource($product)], 200);
   }
 
-  public function store(CreateProductRequest $request) {
+  public function store(CreateProductRequest $request)
+  {
     $product = Product::storeProduct($request);
 
     // Handle multiple file upload
     if ($request->hasFile('images')) {
       foreach ($request->allFiles('images') as $image) {
-        $imageName = time().'_'.$image->getClientOriginalName();
+        $imageName = time() . '_' . $image->getClientOriginalName();
         $image->move(public_path('images'), $imageName);
 
         ProductImage::create([
