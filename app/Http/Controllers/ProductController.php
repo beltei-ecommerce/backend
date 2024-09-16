@@ -57,7 +57,7 @@ class ProductController extends Controller
       return Response()->json(['success' => false, 'message' => 'Product not found'], 404);
     }
 
-    $request['includeProductImages'] = true; // include productImages in ProductResource
+    $request['include_product_images'] = true; // include productImages in ProductResource
 
     return Response()->json(['success' => true, 'data' => new ProductResource($product)], 200);
   }
