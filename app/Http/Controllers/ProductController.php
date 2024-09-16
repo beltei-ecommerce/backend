@@ -22,6 +22,16 @@ class ProductController extends Controller
     $name = $request->query('name');
 
     $query = Product::query()->where('name', 'like', '%' . $name . '%');
+
+    if ($request->has('fk_category_id')) {
+      $categoryId = $request->query('fk_category_id');
+      $query->where('fk_category_id', $categoryId);
+    }
+    if ($request->has('not_include_ids')) {
+      $notIncludeIds = json_decode($request->query('not_include_ids'));
+      $query->whereNotIn('id', $notIncludeIds);
+    }
+
     $queryCount = clone $query;
 
     if (!$limit) {
