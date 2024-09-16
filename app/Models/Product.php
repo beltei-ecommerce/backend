@@ -18,6 +18,7 @@ class Product extends Model
         'fk_category_id',
         'name',
         'product_code',
+        'price',
         'description',
         'image',
         'disable'
@@ -26,7 +27,10 @@ class Product extends Model
     // Store or Update product
     public static function storeProduct($request, $id = null)
     {
-        $product = $request->only(['fk_category_id', 'name', 'product_code', 'description', 'image', 'disable']);
+        $product = $request->only([
+            'fk_category_id', 'name', 'product_code',
+            'price', 'description', 'image', 'disable'
+        ]);
         $product = self::updateOrCreate(['id' => $id], $product);
         return $product;
     }
