@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -44,4 +45,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('products', ProductController::class)->except(['index', 'show']);
 
     Route::resource('categories', CategoryController::class)->except(['index']);
+
+    Route::resource('carts', CartController::class);
 });

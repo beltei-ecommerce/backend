@@ -23,8 +23,15 @@ class UserSeeder extends Seeder
             [
                 'first_name' => "Amma",
                 'last_name' => "Nita",
-                'gender' => "male",
+                'gender' => "female",
                 'email' => 'user@example.com',
+                'password' => '123',
+            ],
+            [
+                'first_name' => "Dara",
+                'last_name' => "SOK",
+                'gender' => "male",
+                'email' => 'dara@example.com',
                 'password' => '123',
             ]
         ];
