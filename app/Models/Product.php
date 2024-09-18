@@ -19,6 +19,7 @@ class Product extends Model
         'name',
         'product_code',
         'price',
+        'quantity',
         'description',
         'image',
         'disable'
@@ -29,7 +30,7 @@ class Product extends Model
     {
         $product = $request->only([
             'fk_category_id', 'name', 'product_code',
-            'price', 'description', 'image', 'disable'
+            'price', 'quantity', 'description', 'image', 'disable'
         ]);
         $product = self::updateOrCreate(['id' => $id], $product);
         return $product;
