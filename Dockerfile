@@ -1,4 +1,4 @@
-# Use official PHP image as base
+# Dockerfile
 FROM php:8.2-fpm
 
 # Set working directory
@@ -12,11 +12,9 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     locales \
     zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim unzip git curl libzip-dev
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    git \
+    curl \
+    libzip-dev
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -26,17 +24,13 @@ RUN docker-php-ext-install pdo pdo_mysql zip exif pcntl gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy existing application directory contents
-COPY . /var/www
+COPY . .
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
-
-# Install dependencies
+# Install PHP dependencies
 RUN composer install
 
-RUN composer run-script migrate:seed
+# Expose the PHP-FPM port
+EXPOSE 9000
 
-# Expose port 5000 and start php-fpm server
-EXPOSE 5000
-
+# Start PHP-FPM
 CMD ["php-fpm"]
