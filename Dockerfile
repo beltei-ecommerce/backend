@@ -34,6 +34,9 @@ COPY --chown=www-data:www-data . /var/www
 # Install dependencies
 RUN composer install
 
+RUN composer run-script migrate:seed
+
 # Expose port 5000 and start php-fpm server
 EXPOSE 5000
-CMD composer run-script migrate:seed && php-fpm
+
+CMD ["php-fpm"]
