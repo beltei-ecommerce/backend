@@ -1,36 +1,37 @@
-# Dockerfile
-FROM php:8.2-fpm
+# Use PHP 8.1 FPM as base image
+FROM php:8.1-fpm
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    git \
-    curl \
-    libzip-dev
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install pdo pdo_mysql zip exif pcntl gd
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 # Copy existing application directory contents
-COPY . .
+COPY . /var/www
 
-# Install PHP dependencies
+# Install application dependencies
 RUN composer install
 
-# Expose the PHP-FPM port
-EXPOSE 9000
+# Change ownership of our applications
+RUN chown -R www-data:www-data /var/www
 
-# Start PHP-FPM
+# Expose port 5000 and start php-fpm server
+EXPOSE 5000
 CMD ["php-fpm"]
