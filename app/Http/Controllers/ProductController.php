@@ -70,7 +70,7 @@ class ProductController extends Controller
     if ($request->hasFile('images')) {
       foreach ($request->allFiles('images') as $image) {
         $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images'), $imageName);
+        $image->move(public_path('storage'), $imageName);
 
         ProductImage::create([
           'fk_product_id' => $product->id,
