@@ -32,10 +32,6 @@ RUN composer install
 # Change ownership of our applications
 RUN chown -R www-data:www-data /var/www
 
-# Set the appropriate permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/public/storage \
-    && chmod -R 775 /var/www/html/storage /var/www/html/public/storage
-
 # Run the Artisan command to create the storage symlink
 RUN php artisan storage:link
 
