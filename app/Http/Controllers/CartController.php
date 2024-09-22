@@ -43,16 +43,41 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, int $id)
     {
-        //
+        $cart = Cart::where('id', $id)->first();
+        if (!$cart) {
+            return response()->json(
+                [
+                    'success' =>  false,
+                    'message' => 'No cart found'
+                ],
+                404
+            );
+        }
+
+        $cart->quantity = $request->quantity;
+        $cart->save();
+        return response()->json(['success' =>  true],);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy(int $id)
     {
-        //
+        $cart = Cart::where('id', $id)->first();
+        if (!$cart) {
+            return response()->json(
+                [
+                    'success' =>  false,
+                    'message' => 'No cart found'
+                ],
+                404
+            );
+        }
+
+        $cart->delete();
+        return response()->json(['success' =>  true],);
     }
 }

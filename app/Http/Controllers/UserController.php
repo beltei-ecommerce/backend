@@ -61,6 +61,7 @@ class UserController extends Controller
             "success" => true,
             "user" => new UserResource($user),
             'can_see_menus' => $canSeeMenus,
+            'items_in_cart' => $user->carts->count()
         ]);
     }
 
