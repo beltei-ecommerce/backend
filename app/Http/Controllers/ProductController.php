@@ -69,7 +69,7 @@ class ProductController extends Controller
     // Handle multiple file upload
     if ($request->hasFile('images')) {
       foreach ($request->allFiles('images') as $image) {
-        $imageName = time() . '_' . $image->getClientOriginalName();
+        $imageName = time() . '_' . $image->getPathname();
         $image->move(public_path('storage'), $imageName);
 
         ProductImage::create([
