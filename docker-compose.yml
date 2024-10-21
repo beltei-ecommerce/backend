@@ -16,9 +16,6 @@ services:
     depends_on:
       mysql_healthcheck:
         condition: service_completed_successfully
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
     command: >
       sh -c "composer install &&
              php artisan key:generate &&

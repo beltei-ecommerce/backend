@@ -26,6 +26,9 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
+# Install application dependencies
+RUN composer install
+
 # Change ownership of our applications
 RUN chown -R www-data:www-data /var/www
 
