@@ -16,17 +16,20 @@ class AddressSeeder extends Seeder
         $rows = [
             [
                 'fk_user_id' => 2,
-                'telephone' => '0973432424',
+                'name'=> 'Chetra Hong',
+                'telephone' => '+855 973 432 424',
                 'company' => 'Sourceamax Asia',
                 'address1' => '#51A, St.214 S/K Boeng Reang, Khan Daun Penh',
                 'city' => 'Phnom Penh',
                 'post_code' => '22222',
                 'country' => 'Cambodia',
                 'region' => 'Phnom Penh',
+                'is_default' => true,
             ],
             [
                 'fk_user_id' => 3,
-                'telephone' => '0663233233',
+                'name'=> 'User Example',
+                'telephone' => '+855 663 233 233',
                 'company' => 'Sourceamax Asia',
                 'address1' => '#53A, St.2004 Phnom Penh',
                 'address2' => '',
@@ -34,6 +37,7 @@ class AddressSeeder extends Seeder
                 'post_code' => '44444',
                 'country' => 'Cambodia',
                 'region' => 'Phnom Penh',
+                'is_default' => true,
             ],
         ];
 

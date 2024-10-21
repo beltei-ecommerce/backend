@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Utils\Pagination;
@@ -21,14 +22,14 @@ class CategoryController extends Controller
           $categories = $query->get();
         } else {
           $offset = Pagination::offset($page, $limit);
-          $categories = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
+          $categories = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get()->makeVisible('created_at');
         }
 
         return response()->json([
             "success" => true,
             'data' => [
               'count' => $queryCount->count(),
-              'rows' => $categories,
+              'rows' => CategoryResource::collection($categories),
             ]
           ]);
     }

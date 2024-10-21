@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,4 +50,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('categories', CategoryController::class)->except(['index']);
 
     Route::resource('carts', CartController::class);
+
+    Route::resource('addresses', AddressController::class);
+
+    Route::resource('payments', PaymentController::class);
+
+    Route::resource('orders', OrderController::class);
 });

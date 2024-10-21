@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fk_user_id')->nullable();
+            $table->unsignedBigInteger('fk_user_id');
             $table->foreign('fk_user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('name');
+                ->onDelete('no action');
+            $table->decimal('amount', 9, 3);
+            $table->string('contact_name');
             $table->string('email')->nullable();
             $table->string('telephone');
             $table->string('company')->nullable();
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->string('post_code');
             $table->string('country');
             $table->string('region');
-            $table->boolean('is_default')->default(false);
             $table->boolean('disable')->default(false);
             $table->timestamps();
         });
@@ -41,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('orders');
     }
 };

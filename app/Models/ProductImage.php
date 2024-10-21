@@ -20,4 +20,10 @@ class ProductImage extends Model
         'name',
         'path',
     ];
+
+    protected $hidden = [
+        'fk_product_id',
+        'created_at',
+        'updated_at',
+    ];
 }

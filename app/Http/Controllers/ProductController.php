@@ -38,7 +38,7 @@ class ProductController extends Controller
       $products = $query->get();
     } else {
       $offset = Pagination::offset($page, $limit);
-      $products = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get();
+      $products = $query->skip($offset)->take($limit)->orderBy('id', 'desc')->get()->makeVisible('created_at');
     }
 
     return response()->json([

@@ -24,7 +24,8 @@ class User extends Authenticatable
         'gender',
         'email',
         'image',
-        'password'
+        'password',
+        'disable'
     ];
 
     /**
@@ -49,7 +50,7 @@ class User extends Authenticatable
     // Store or update User
     public static function storeUser($request, $id = null)
     {
-        $user = $request->only(['first_name', 'last_name', 'gender', 'email', 'password']);
+        $user = $request->only(['first_name', 'last_name', 'gender', 'email', 'password', 'disable']);
         $user = self::updateOrCreate(['id' => $id], $user);
         return $user;
     }
@@ -63,5 +64,10 @@ class User extends Authenticatable
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class, 'fk_user_id', 'id');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'fk_user_id', 'id');
     }
 }

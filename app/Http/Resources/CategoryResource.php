@@ -14,6 +14,10 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        // $request['include_product_images'] = true;
+
+        return array_merge(parent::toArray($request), [
+            'number_of_products' => $this->products->count(),
+        ]);
     }
 }

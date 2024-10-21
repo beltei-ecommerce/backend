@@ -48,8 +48,11 @@ class UserController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::storeUser($request);
-        return Response()->json(['success' => true, 'data' => new UserResource($user)]);
+        $request["password"] = "NewUser";
+        User::storeUser($request);
+
+        $request["is_created"] = true;
+        return self::sendRequestResetPassword($request);
     }
 
     public function whoAmI()
@@ -61,7 +64,8 @@ class UserController extends Controller
             "success" => true,
             "user" => new UserResource($user),
             'can_see_menus' => $canSeeMenus,
-            'items_in_cart' => $user->carts->count()
+            'items_in_cart' => $user->carts->count(),
+            'number_of_orders' => $user->orders->where('disable', false)->count()
         ]);
     }
 
@@ -85,7 +89,7 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if (!$user) {
-            return response()->json(['success'=>  false, 'message'=> 'Imposible to send to this email'], 404);
+            return response()->json(['success' =>  false, 'message' => 'Imposible to send to this email'], 404);
         }
 
         try {
@@ -104,7 +108,9 @@ class UserController extends Controller
                 'token' =>  $data['token']
             ]);
 
+            $data['is_created'] = $request->is_created ? true : false;
             $data['first_name'] = $user->first_name;
+            $data['subject'] = $request->is_created ? 'New account registration' : 'Reset new password';
 
             // Email sent successfully, return a success response
             Mail::to($data['email'])->send(new RecoverPasswordNotifycation($data));
@@ -116,7 +122,7 @@ class UserController extends Controller
             // Error sending email, return an error response
             return response()->json([
                 'message' => 'Something went wrong while sending reset password',
-                'success' => false,
+                'success' => $e,
             ], 500);
         }
     }
@@ -153,7 +159,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        $newPassword = $request->new_password;
+        $newPassword = $request->password;
         $email = $passwordResetToken->email;
 
         // Update password by email

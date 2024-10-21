@@ -18,12 +18,13 @@
       margin: 0 auto;
       padding: 20px;
       background-color: #ffffff;
-      border-radius: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     .header {
       text-align: center;
-      background-color: #4d4e9c;
+      background-color: #cc000e;
       color: #ffffff;
       padding: 10px 0;
       border-top-left-radius: 10px;
@@ -45,14 +46,14 @@
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
-      background-color: #4d4e9c;
+      background-color: #cc000e;
       color: #ffffff;
       text-decoration: none;
       border-radius: 5px;
       font-size: 18px;
     }
     .reset-button:hover {
-      background-color: #4d1e9f;
+      background-color: #8a020c;
     }
     .footer {
       margin-top: 20px;
@@ -65,16 +66,22 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Password Reset Request</h1>
+      <h1>{{$data['subject']}}</h1>
     </div>
     <div class="content">
       <p>Hi {{$data['first_name']}},</p>
-      <p>We received a request to reset your password. Click the button below to reset it.</p>
-      <a href="{{env('FRONTEND_APP_BASE_URL')}}/auth/reset_password?token={{$data['token']}}" class="reset-button">Reset Password</a>
-      <p>If you didn't request a password reset, please ignore this email.</p>
+      @if ($data['is_created'])
+        <p>We received your registration for a new account.</p>
+      @else
+        <p>We received a request to reset your password.</p>
+      @endif
+      <p>Click the button below to reset new password for your account.</p>
+      <a href="{{env('FRONTEND_APP_BASE_URL')}}/auth/reset_password?token={{$data['token']}}" class="reset-button">Reset password</a>
+      <p>If you didn't request this, please ignore this email.</p>
     </div>
     <div class="footer">
       <p>If you have any questions, feel free to contact our support team.</p>
+      <p>supports@publicofgamer.com</p>
       <p>Thank you!</p>
     </div>
   </div>

@@ -17,9 +17,20 @@ class Category extends Model
         'name',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'disable',
+        'created_at',
+        'updated_at'
+    ];
+
     public static function storeCategory($name, $id = null)
     {
-        $category = self::updateOrCreate(['id' => $id], ['name' =>$name]);
+        $category = self::updateOrCreate(['id' => $id], ['name' => $name]);
         return $category;
     }
 

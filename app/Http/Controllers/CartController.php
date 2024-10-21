@@ -29,7 +29,18 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $cart = Cart::where('fk_user_id', $user->id)
+            ->where('fk_product_id', $request->fk_product_id)->first();
+        if ($cart) {
+            $cart->quantity = $cart->quantity + $request->quantity;
+            $cart->save();
+            return response()->json(['success' => true]);
+        }
+
+        $payload = array_merge($request->all(), ['fk_user_id' => $user->id]);
+        Cart::create($payload);
+        return response()->json(['success' => true]);
     }
 
     /**

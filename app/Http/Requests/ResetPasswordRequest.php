@@ -29,7 +29,7 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             'token'=>'required',
-            'new_password'=>'required|min:8'
+            'password'=>'required|min:8'
         ];
     }
 }

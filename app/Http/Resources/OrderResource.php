@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return array_merge(parent::toArray($request), [
-            'category' => $this->category,
-            'productImages' => $request->query('include_product_images')
-                ? $this->productImages : null
+            'created_at' => $this->created_at,
+            'orderProducts' => OrderProductResource::collection($this->orderProducts),
         ]);
     }
 }
