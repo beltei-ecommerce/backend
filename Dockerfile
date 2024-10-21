@@ -32,6 +32,9 @@ RUN composer install
 # Change ownership of our applications
 RUN chown -R www-data:www-data /var/www
 
+# Run the Artisan command to create the storage symlink
+RUN php artisan storage:link
+
 # Expose port 5000 and start php-fpm server
 EXPOSE 5000
 CMD ["php-fpm"]
