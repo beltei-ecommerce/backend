@@ -14,6 +14,8 @@ services:
     depends_on:
       mysql_healthcheck:
         condition: service_completed_successfully
+    command: >
+      sh -c "composer run-script migrate:seed"
 
   nginx:
     image: nginx:alpine
