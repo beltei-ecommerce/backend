@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('price', 9, 3);
             $table->integer('quantity');
             $table->text('description')->nullable();
+            $table->text('description2')->nullable();
             $table->boolean('disable')->default(false);
             $table->timestamps();
         });

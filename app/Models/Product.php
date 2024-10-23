@@ -21,7 +21,7 @@ class Product extends Model
         'price',
         'quantity',
         'description',
-        'image',
+        'description2',
         'disable'
     ];
 

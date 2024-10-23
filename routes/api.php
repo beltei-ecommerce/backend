@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/auth/whoami', [UserController::class, 'whoAmI']);
     Route::post('/auth/logout', [UserController::class, 'logout']);
+    Route::put('/auth/user/', [UserController::class, 'update']);
     Route::post('/auth/update_password', [UserController::class, 'updatePassword']);
 
     Route::resource('products', ProductController::class)->except(['index', 'show']);

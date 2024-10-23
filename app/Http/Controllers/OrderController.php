@@ -19,7 +19,6 @@ class OrderController extends Controller
         $disable = $request->query('disable') || false;
 
         $data = Order::where('fk_user_id', $user->id)->where('disable', $disable)
-            ->select(["id", 'fk_user_id', 'amount', 'created_at'])
             ->orderBy('created_at', 'desc')->get();
 
         return response()->json([

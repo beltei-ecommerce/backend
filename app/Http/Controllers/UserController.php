@@ -48,11 +48,17 @@ class UserController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $request["password"] = "NewUser";
         User::storeUser($request);
-
-        $request["is_created"] = true;
         return self::sendRequestResetPassword($request);
+        Address::where('id', $id)->update($request->all());
+        return response()->json(['success' => true]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        User::where('id', $user->id)->update($request->all());
+        return response()->json(['success' => true]);
     }
 
     public function whoAmI()
